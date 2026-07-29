@@ -1,0 +1,153 @@
+<!-- Register Page -->
+<section class="register-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5">
+        <!-- Card -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+          <!-- Card Header -->
+          <div class="card-header bg-primary text-white text-center py-4 border-0">
+            <i class="bi bi-person-plus display-5 mb-2"></i>
+            <h3 class="fw-bold mb-1">Create Account</h3>
+            <p class="mb-0 text-white-50 small">Join OnePlace</p>
+          </div>
+
+          <div class="card-body p-4 p-md-5">
+            <!-- Success Alert (verification sent) -->
+            @if (successMessage) {
+              <div class="alert alert-success d-flex align-items-start gap-2" role="alert">
+                <i class="bi bi-envelope-check fs-5 mt-1"></i>
+                <div>
+                  <strong>Registration Successful!</strong><br />
+                  {{ successMessage }}
+                </div>
+              </div>
+            }
+
+            @if (errorMessage) {
+              <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ errorMessage }}
+              </div>
+            }
+
+            @if (!successMessage) {
+              <form (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="fname" class="form-label fw-semibold">
+                    <i class="bi bi-person me-1"></i> First Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="fname"
+                    placeholder="Enter your first name"
+                    [(ngModel)]="fname"
+                    name="fname"
+                    required
+                  />
+                </div>
+                <div class="mb-3">
+                  <label for="lname" class="form-label fw-semibold">
+                    <i ></i> Last Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="lname"
+                    placeholder="Enter your last name"
+                    [(ngModel)]="lname"
+                    name="lname"
+                    required
+                  />
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label fw-semibold">
+                    <i class="bi bi-envelope me-1"></i> Email Address
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control form-control-lg"
+                    id="email"
+                    placeholder="Enter your email"
+                    [(ngModel)]="email"
+                    name="email"
+                    required
+                  />
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label fw-semibold">
+                    <i class="bi bi-lock me-1"></i> Password
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    id="password"
+                    placeholder="Create a password"
+                    [(ngModel)]="password"
+                    name="password"
+                    required
+                  />
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                  <label for="confirmPassword" class="form-label fw-semibold">
+                    <i class="bi bi-lock-fill me-1"></i> Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    [(ngModel)]="confirmPassword"
+                    name="confirmPassword"
+                    required
+                  />
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  type="submit"
+                  class="btn btn-primary btn-lg w-100 fw-semibold"
+                  [disabled]="isLoading"
+                >
+                  @if (isLoading) {
+                    <span
+                      class="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
+                    Creating Account...
+                  } @else {
+                    <i class="bi bi-person-plus me-2"></i> Sign Up
+                  }
+                </button>
+              </form>
+            }
+
+            <!-- Login redirect (always visible) -->
+            @if (successMessage) {
+              <div class="text-center mt-3">
+                <a routerLink="/login" class="btn btn-outline-primary w-100 fw-semibold">
+                  <i class="bi bi-box-arrow-in-right me-2"></i> Go to Login
+                </a>
+              </div>
+            }
+          </div>
+
+          <div class="card-footer bg-light text-center py-3 border-0">
+            <span class="text-muted">Already have an account?</span>
+            <a routerLink="/login" class="text-primary fw-semibold text-decoration-none ms-1"
+              >Login</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
