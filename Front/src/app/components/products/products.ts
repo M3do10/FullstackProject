@@ -23,7 +23,7 @@ export class Products implements OnInit, OnDestroy {
   selectedCategory = 'All';
   selectedSort = 'default';
 
-  categories = ['All', 'Electronics', 'Clothing', 'Home', 'Sports'];
+  categories = ['All', 'Electronics', 'Clothing','Books', 'Home', 'Sports'];
 
   private cartSub!: Subscription;
   private authSub!: Subscription;

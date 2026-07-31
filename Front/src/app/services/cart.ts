@@ -3,6 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, BehaviorSubject } from 'rxjs';
 import { isPlatformBrowser } from '@angular/common';
 import { ProductItem } from './product';
+import { AuthService } from './auth';
 
 export interface CartItem {
   product: ProductItem;
@@ -26,10 +27,17 @@ export class CartService {
 
   constructor(
     private http: HttpClient,
+    private authService: AuthService,
     @Inject(PLATFORM_ID) private platformId: Object
   ) {
     if (isPlatformBrowser(this.platformId)) {
-      this.loadUserCart();
+      this.authService.currentUser$.subscribe(user => {
+        if (user && user.token) {
+          this.loadUserCart();
+        } else {
+          this.cartSubject.next({ items: [] });
+        }
+      });
     }
   }
 

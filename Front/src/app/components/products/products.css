@@ -1,5 +1,11 @@
 /* Products Page Styling */
+.form-control {
+    --bs-focus-ring-color: transparent;
+}
 
+.form-control:focus {
+    box-shadow: none;
+}
 .products-page {
   font-family: 'Inter', sans-serif;
 }
