@@ -16,9 +16,9 @@
           <div class="card-body p-4 p-md-5">
 
             @if (errorMessage) {
-              <div class="alert alert-danger d-flex align-items-start gap-2" role="alert">
-                <i class="bi bi-exclamation-triangle-fill fs-5 mt-1"></i>
-                <div>{{ errorMessage }}</div>
+              <div class="alert alert-danger d-flex align-items-center gap-2 mb-3 rounded-3" role="alert">
+                <i class="bi bi-exclamation-triangle-fill fs-5 text-danger"></i>
+                <div class="fw-semibold">{{ errorMessage }}</div>
               </div>
             }
 

@@ -37,11 +37,11 @@ export class Login {
           this.authService.setAuth(res.token, res.fname);
           this.router.navigate(['/']);
         } else {
-          this.errorMessage = res.message || 'Login failed.';
+          this.errorMessage = res.message || 'Email or password incorrect.';
         }
       },
       error: (err) => {
-        this.errorMessage = err.error?.message || 'Login failed. Please try again.';
+        this.errorMessage = err.error?.message || 'Email or password incorrect.';
       }
     });
   }

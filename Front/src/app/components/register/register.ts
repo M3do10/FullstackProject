@@ -14,6 +14,7 @@ export class Register {
   registerForm: FormGroup;
   successMessage = '';
   errorMessage = '';
+  emailTakenError = '';
 
   constructor(private authService: AuthService, private router: Router) {
     this.registerForm = new FormGroup({
@@ -28,7 +29,7 @@ export class Register {
   onSubmit() {
     this.errorMessage = '';
     this.successMessage = '';
-    console.log('Form values:', this.registerForm.value);
+    this.emailTakenError = '';
 
     if (this.registerForm.invalid) {
       this.errorMessage = 'Please fill all fields correctly.';
@@ -49,16 +50,22 @@ export class Register {
     };
 
     this.authService.signUp(payload).subscribe({
-      next: (res) => {
-        if (res.message && res.message.includes('already registered')) {
-          this.errorMessage = res.message;
+      next: (res: any) => {
+        const message = (res && res.message) ? res.message.toLowerCase() : '';
+        if (message.includes('already registered') || message.includes('taken') || message.includes('exist')) {
+          this.emailTakenError = 'This email is already registered. Please log in or use another email.';
         } else {
           this.successMessage = 'A verification link has been sent to your email. Please verify your account before logging in.';
           this.registerForm.reset();
         }
       },
-      error: (err) => {
-        this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
+      error: (err: any) => {
+        const msg = (err.error && err.error.message) ? err.error.message.toLowerCase() : '';
+        if (msg.includes('already registered') || msg.includes('taken') || msg.includes('exist')) {
+          this.emailTakenError = 'This email is already registered. Please log in or use another email.';
+        } else {
+          this.errorMessage = err.error?.message || 'Registration failed. Please try again.';
+        }
       }
     });
   }

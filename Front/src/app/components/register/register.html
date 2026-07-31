@@ -72,13 +72,20 @@
                   <label for="email" class="form-label fw-semibold">
                     <i class="bi bi-envelope me-1"></i> Email Address
                   </label>
+                  @if (emailTakenError) {
+                    <div class="alert alert-danger d-flex align-items-center gap-2 mb-2 p-2 small rounded-3" role="alert">
+                      <i class="bi bi-exclamation-triangle-fill text-danger"></i>
+                      <span>{{ emailTakenError }}</span>
+                    </div>
+                  }
                   <input
                     type="email"
                     class="form-control form-control-lg"
                     id="email"
                     placeholder="Enter your email"
                     formControlName="email"
-                    [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
+                    (input)="emailTakenError = ''"
+                    [ngClass]="{ 'is-invalid': (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) || emailTakenError }"
                   />
                   @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
                     <div class="invalid-feedback">
