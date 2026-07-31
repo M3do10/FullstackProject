@@ -120,13 +120,13 @@
                   {{ product.description }}
                 </p>
 
-                <!-- Price and Action -->
+  
                 <div class="mt-auto">
                   <div class="d-flex align-items-center justify-content-between mb-3">
                     <span class="fs-4 fw-extrabold text-primary">${{ product.price.toFixed(2) }}</span>
                   </div>
 
-                  <!-- Dynamic Action Button: Add to Cart vs [- quantity +] -->
+    
                   @if (getQuantity(product._id) === 0) {
                     <button
                       class="btn btn-primary w-100 fw-semibold rounded-pill py-2 d-flex align-items-center justify-content-center gap-2 shadow-sm"

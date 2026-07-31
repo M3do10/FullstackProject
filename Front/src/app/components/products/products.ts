@@ -88,7 +88,7 @@ export class Products implements OnInit, OnDestroy {
       );
     }
 
-    // Filter by Search Query (Name or Category)
+    // Filter by Search Query
     if (this.searchQuery.trim() !== '') {
       const q = this.searchQuery.toLowerCase().trim();
       result = result.filter(
