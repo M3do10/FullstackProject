@@ -1,0 +1,81 @@
+<!-- Main Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary sticky-top shadow-sm">
+  <div class="container">
+    <!-- Brand -->
+    <a class="navbar-brand fw-bold fs-4" routerLink="/">
+      <i class="bi bi-shop me-2"></i>OnePlace
+    </a>
+
+    <button class="navbar-toggler border-0" type="button"
+            data-bs-toggle="collapse" data-bs-target="#mainNavbar"
+            aria-controls="mainNavbar" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- Nav Links -->
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="bi bi-house-door me-1"></i> Home
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/products" routerLinkActive="active">
+            <i class="bi bi-grid me-1"></i> Products
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/about" routerLinkActive="active">
+            <i class="bi bi-info-circle me-1"></i> About
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" routerLink="/contact" routerLinkActive="active">
+            <i class="bi bi-chat-dots me-1"></i> Contact
+          </a>
+        </li>
+      </ul>
+
+      <!-- Right Side -->
+      <div class="d-flex align-items-center gap-3">
+        <a routerLink="/cart" class="btn btn-outline-light position-relative">
+          <i class="bi bi-cart3"></i>
+          <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+            {{ cartCount }}
+          </span>
+        </a>
+        @if (isLoggedIn) {
+          <div class="dropdown position-relative">
+            <button 
+              class="btn btn-light rounded-pill d-flex align-items-center gap-2 px-2 py-1 dropdown-toggle shadow-sm" 
+              type="button" 
+              (click)="toggleDropdown()"
+              style="border: none;"
+            >
+              <div class="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center fw-bold" style="width: 30px; height: 30px; font-size: 14px;">
+                {{ userName.charAt(0).toUpperCase() }}
+              </div>
+              <span class="fw-semibold pe-1 text-primary">{{ userName }}</span>
+            </button>
+            <ul 
+              class="dropdown-menu dropdown-menu-end shadow border-0 mt-2 rounded-3" 
+              [class.show]="isDropdownOpen"
+              style="right: 0; left: auto;"
+            >
+             
+              <li><button class="dropdown-item py-2 fw-semibold text-danger" (click)="logout()"><i class="bi bi-box-arrow-right me-2"></i>Logout</button></li>
+            </ul>
+          </div>
+        } @else {
+          <a routerLink="/login" class="btn btn-light btn-sm">
+            <i class="bi bi-person me-1"></i> Login
+          </a>
+          <a routerLink="/register" class="btn btn-warning btn-sm fw-semibold">
+            <i class="bi bi-person-plus me-1"></i> Register
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</nav>

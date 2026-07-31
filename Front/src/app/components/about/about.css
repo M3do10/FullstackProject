@@ -1,0 +1,46 @@
+.about-hero {
+  background: linear-gradient(135deg, #0d6efd 0%, #0a58ca 50%, #084298 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.about-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(circle at 80% 20%, rgba(255,255,255,0.08) 0%, transparent 50%);
+}
+
+.about-icon-box {
+  width: 300px;
+  height: 300px;
+}
+
+.icon-circle {
+  width: 80px;
+  height: 80px;
+}
+
+.about-card {
+  border-radius: 0.75rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1.5rem rgba(0, 0, 0, 0.12) !important;
+}
+
+@media (max-width: 768px) {
+  .about-icon-box {
+    width: 200px;
+    height: 200px;
+  }
+
+  .display-4 {
+    font-size: 2rem;
+  }
+}

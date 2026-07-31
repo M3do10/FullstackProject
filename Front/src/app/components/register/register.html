@@ -1,0 +1,173 @@
+<!-- Register Page -->
+<section class="register-section py-5">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-5">
+        <!-- Card -->
+        <div class="card border-0 shadow-lg rounded-4 overflow-hidden">
+          <!-- Card Header -->
+          <div class="card-header bg-primary text-white text-center py-4 border-0">
+            <i class="bi bi-person-plus display-5 mb-2"></i>
+            <h3 class="fw-bold mb-1">Create Account</h3>
+            <p class="mb-0 text-white-50 small">Join OnePlace</p>
+          </div>
+
+          <div class="card-body p-4 p-md-5">
+            <!-- Success Alert (verification sent) -->
+            @if (successMessage) {
+              <div class="alert alert-success d-flex align-items-start gap-2" role="alert">
+                <i class="bi bi-envelope-check fs-5 mt-1"></i>
+                <div>
+                  <strong>Registration Successful!</strong><br />
+                  {{ successMessage }}
+                </div>
+              </div>
+            }
+
+            @if (errorMessage) {
+              <div class="alert alert-danger d-flex align-items-center gap-2" role="alert">
+                <i class="bi bi-exclamation-triangle-fill"></i>
+                {{ errorMessage }}
+              </div>
+            }
+
+            @if (!successMessage) {
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+                <div class="mb-3">
+                  <label for="fname" class="form-label fw-semibold">
+                    <i class="bi bi-person me-1"></i> First Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="fname"
+                    placeholder="Enter your first name"
+                    formControlName="fname"
+                    [ngClass]="{ 'is-invalid': registerForm.get('fname')?.invalid && registerForm.get('fname')?.touched }"
+                  />
+                  @if (registerForm.get('fname')?.invalid && registerForm.get('fname')?.touched) {
+                    <div class="invalid-feedback">First Name is required.</div>
+                  }
+                </div>
+                
+                <div class="mb-3">
+                  <label for="lname" class="form-label fw-semibold">
+                    <i ></i> Last Name
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control form-control-lg"
+                    id="lname"
+                    placeholder="Enter your last name"
+                    formControlName="lname"
+                    [ngClass]="{ 'is-invalid': registerForm.get('lname')?.invalid && registerForm.get('lname')?.touched }"
+                  />
+                  @if (registerForm.get('lname')?.invalid && registerForm.get('lname')?.touched) {
+                    <div class="invalid-feedback">Last Name is required.</div>
+                  }
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                  <label for="email" class="form-label fw-semibold">
+                    <i class="bi bi-envelope me-1"></i> Email Address
+                  </label>
+                  <input
+                    type="email"
+                    class="form-control form-control-lg"
+                    id="email"
+                    placeholder="Enter your email"
+                    formControlName="email"
+                    [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
+                  />
+                  @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('email')?.errors?.['required']) {
+                        Email is required.
+                      }
+                      @if (registerForm.get('email')?.errors?.['email']) {
+                        Please enter a valid email address.
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Password -->
+                <div class="mb-3">
+                  <label for="password" class="form-label fw-semibold">
+                    <i class="bi bi-lock me-1"></i> Password
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    id="password"
+                    placeholder="Create a password"
+                    formControlName="password"
+                    [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }"
+                  />
+                  @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('password')?.errors?.['required']) {
+                        Password is required.
+                      }
+                      @if (registerForm.get('password')?.errors?.['minlength']) {
+                        Password must be at least 8 characters.
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Confirm Password -->
+                <div class="mb-4">
+                  <label for="confirmPassword" class="form-label fw-semibold">
+                    <i class="bi bi-lock-fill me-1"></i> Confirm Password
+                  </label>
+                  <input
+                    type="password"
+                    class="form-control form-control-lg"
+                    id="confirmPassword"
+                    placeholder="Confirm your password"
+                    formControlName="confirmPassword"
+                    [ngClass]="{ 'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched }"
+                  />
+                  @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+                        Please confirm your password.
+                      }
+                    </div>
+                  }
+                </div>
+
+                <!-- Submit Button -->
+                <button
+                  type="button"
+                  class="btn btn-primary btn-lg w-100 fw-semibold"
+                  (click)="onSubmit()"
+                >
+                  <i class="bi bi-person-plus me-2"></i> Sign Up
+                </button>
+              </form>
+            }
+
+            <!-- Login redirect (always visible) -->
+            @if (successMessage) {
+              <div class="text-center mt-3">
+                <a routerLink="/login" class="btn btn-outline-primary w-100 fw-semibold">
+                  <i class="bi bi-box-arrow-in-right me-2"></i> Go to Login
+                </a>
+              </div>
+            }
+          </div>
+
+          <div class="card-footer bg-light text-center py-3 border-0">
+            <span class="text-muted">Already have an account?</span>
+            <a routerLink="/login" class="text-primary fw-semibold text-decoration-none ms-1"
+              >Login</a
+            >
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
