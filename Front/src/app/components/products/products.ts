@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { Router, RouterLink } from '@angular/router';
+import { Router, RouterLink, ActivatedRoute } from '@angular/router';
 import { ProductService, ProductItem } from '../../services/product';
 import { CartService } from '../../services/cart';
 import { AuthService } from '../../services/auth';
@@ -23,7 +23,7 @@ export class Products implements OnInit, OnDestroy {
   selectedCategory = 'All';
   selectedSort = 'default';
 
-  categories = ['All', 'Electronics', 'Clothing','Books', 'Home', 'Sports'];
+  categories = ['All', 'Electronics', 'Clothing', 'Books', 'Home', 'Sports'];
 
   private cartSub!: Subscription;
   private authSub!: Subscription;
@@ -34,12 +34,20 @@ export class Products implements OnInit, OnDestroy {
     private cartService: CartService,
     private authService: AuthService,
     private router: Router,
+    private route: ActivatedRoute,
     private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.authSub = this.authService.currentUser$.subscribe(user => {
       this.isLoggedIn = !!user;
+    });
+
+    this.route.queryParams.subscribe(params => {
+      if (params['category']) {
+        this.selectedCategory = params['category'];
+      }
+      this.applyFilters();
     });
 
     this.fetchProducts();
