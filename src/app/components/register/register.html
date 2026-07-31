@@ -32,7 +32,7 @@
             }
 
             @if (!successMessage) {
-              <form (ngSubmit)="onSubmit()">
+              <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
                 <div class="mb-3">
                   <label for="fname" class="form-label fw-semibold">
                     <i class="bi bi-person me-1"></i> First Name
@@ -42,11 +42,14 @@
                     class="form-control form-control-lg"
                     id="fname"
                     placeholder="Enter your first name"
-                    [(ngModel)]="fname"
-                    name="fname"
-                    required
+                    formControlName="fname"
+                    [ngClass]="{ 'is-invalid': registerForm.get('fname')?.invalid && registerForm.get('fname')?.touched }"
                   />
+                  @if (registerForm.get('fname')?.invalid && registerForm.get('fname')?.touched) {
+                    <div class="invalid-feedback">First Name is required.</div>
+                  }
                 </div>
+                
                 <div class="mb-3">
                   <label for="lname" class="form-label fw-semibold">
                     <i ></i> Last Name
@@ -56,10 +59,12 @@
                     class="form-control form-control-lg"
                     id="lname"
                     placeholder="Enter your last name"
-                    [(ngModel)]="lname"
-                    name="lname"
-                    required
+                    formControlName="lname"
+                    [ngClass]="{ 'is-invalid': registerForm.get('lname')?.invalid && registerForm.get('lname')?.touched }"
                   />
+                  @if (registerForm.get('lname')?.invalid && registerForm.get('lname')?.touched) {
+                    <div class="invalid-feedback">Last Name is required.</div>
+                  }
                 </div>
 
                 <!-- Email -->
@@ -72,10 +77,19 @@
                     class="form-control form-control-lg"
                     id="email"
                     placeholder="Enter your email"
-                    [(ngModel)]="email"
-                    name="email"
-                    required
+                    formControlName="email"
+                    [ngClass]="{ 'is-invalid': registerForm.get('email')?.invalid && registerForm.get('email')?.touched }"
                   />
+                  @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('email')?.errors?.['required']) {
+                        Email is required.
+                      }
+                      @if (registerForm.get('email')?.errors?.['email']) {
+                        Please enter a valid email address.
+                      }
+                    </div>
+                  }
                 </div>
 
                 <!-- Password -->
@@ -88,10 +102,19 @@
                     class="form-control form-control-lg"
                     id="password"
                     placeholder="Create a password"
-                    [(ngModel)]="password"
-                    name="password"
-                    required
+                    formControlName="password"
+                    [ngClass]="{ 'is-invalid': registerForm.get('password')?.invalid && registerForm.get('password')?.touched }"
                   />
+                  @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('password')?.errors?.['required']) {
+                        Password is required.
+                      }
+                      @if (registerForm.get('password')?.errors?.['minlength']) {
+                        Password must be at least 8 characters.
+                      }
+                    </div>
+                  }
                 </div>
 
                 <!-- Confirm Password -->
@@ -104,28 +127,25 @@
                     class="form-control form-control-lg"
                     id="confirmPassword"
                     placeholder="Confirm your password"
-                    [(ngModel)]="confirmPassword"
-                    name="confirmPassword"
-                    required
+                    formControlName="confirmPassword"
+                    [ngClass]="{ 'is-invalid': registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched }"
                   />
+                  @if (registerForm.get('confirmPassword')?.invalid && registerForm.get('confirmPassword')?.touched) {
+                    <div class="invalid-feedback">
+                      @if (registerForm.get('confirmPassword')?.errors?.['required']) {
+                        Please confirm your password.
+                      }
+                    </div>
+                  }
                 </div>
 
                 <!-- Submit Button -->
                 <button
-                  type="submit"
+                  type="button"
                   class="btn btn-primary btn-lg w-100 fw-semibold"
-                  [disabled]="isLoading"
+                  (click)="onSubmit()"
                 >
-                  @if (isLoading) {
-                    <span
-                      class="spinner-border spinner-border-sm me-2"
-                      role="status"
-                      aria-hidden="true"
-                    ></span>
-                    Creating Account...
-                  } @else {
-                    <i class="bi bi-person-plus me-2"></i> Sign Up
-                  }
+                  <i class="bi bi-person-plus me-2"></i> Sign Up
                 </button>
               </form>
             }

@@ -22,7 +22,7 @@
               </div>
             }
 
-            <form (ngSubmit)="onSubmit()">
+            <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
               <!-- Email -->
               <div class="mb-3">
                 <label for="loginEmail" class="form-label fw-semibold">
@@ -33,10 +33,19 @@
                   class="form-control form-control-lg"
                   id="loginEmail"
                   placeholder="Enter your email"
-                  [(ngModel)]="email"
-                  name="email"
-                  required
+                  formControlName="email"
+                  [ngClass]="{ 'is-invalid': loginForm.get('email')?.invalid && loginForm.get('email')?.touched }"
                 />
+                @if (loginForm.get('email')?.invalid && loginForm.get('email')?.touched) {
+                  <div class="invalid-feedback">
+                    @if (loginForm.get('email')?.errors?.['required']) {
+                      Email is required.
+                    }
+                    @if (loginForm.get('email')?.errors?.['email']) {
+                      Please enter a valid email address.
+                    }
+                  </div>
+                }
               </div>
 
               <div class="mb-4">
@@ -48,23 +57,22 @@
                   class="form-control form-control-lg"
                   id="loginPassword"
                   placeholder="Enter your password"
-                  [(ngModel)]="password"
-                  name="password"
-                  required
+                  formControlName="password"
+                  [ngClass]="{ 'is-invalid': loginForm.get('password')?.invalid && loginForm.get('password')?.touched }"
                 />
+                @if (loginForm.get('password')?.invalid && loginForm.get('password')?.touched) {
+                  <div class="invalid-feedback">
+                    Password is required.
+                  </div>
+                }
               </div>
 
               <button
-                type="submit"
+                type="button"
                 class="btn btn-primary btn-lg w-100 fw-semibold"
-                [disabled]="isLoading"
+                (click)="onSubmit()"
               >
-                @if (isLoading) {
-                  <span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>
-                  Logging in...
-                } @else {
-                  <i class="bi bi-box-arrow-in-right me-2"></i> Login
-                }
+                <i class="bi bi-box-arrow-in-right me-2"></i> Login
               </button>
             </form>
           </div>

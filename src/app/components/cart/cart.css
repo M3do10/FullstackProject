@@ -1,1 +1,25 @@
-/* cart styles */
+/* Cart Page Custom Styles */
+
+.cart-page {
+  font-family: 'Inter', sans-serif;
+}
+
+.product-thumb {
+  width: 60px;
+  height: 60px;
+  object-fit: contain;
+  background-color: #f8fafc;
+  padding: 4px;
+}
+
+.bg-primary-subtle {
+  background-color: rgba(13, 110, 253, 0.1) !important;
+}
+
+.bg-success-subtle {
+  background-color: rgba(25, 135, 84, 0.1) !important;
+}
+
+.fw-extrabold {
+  font-weight: 800;
+}
