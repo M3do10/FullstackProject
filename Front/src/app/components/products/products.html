@@ -103,19 +103,23 @@
 
               <!-- Image Container -->
               <div class="product-image-wrapper position-relative bg-white text-center p-3">
-                <img
-                  [src]="product.image"
-                  [alt]="product.name"
-                  class="img-fluid product-img rounded-3"
-                  (error)="handleImageError($event)"
-                />
+                <a [routerLink]="['/product', product._id]" class="text-decoration-none">
+                  <img
+                    [src]="product.image"
+                    [alt]="product.name"
+                    class="img-fluid product-img rounded-3"
+                    (error)="handleImageError($event)"
+                  />
+                </a>
               </div>
 
               <!-- Card Body -->
               <div class="card-body d-flex flex-column p-4">
-                <h5 class="card-title fw-bold text-dark text-truncate mb-1" [title]="product.name">
-                  {{ product.name }}
-                </h5>
+                <a [routerLink]="['/product', product._id]" class="text-decoration-none text-dark">
+                  <h5 class="card-title fw-bold text-truncate mb-1" [title]="product.name">
+                    {{ product.name }}
+                  </h5>
+                </a>
                 <p class="card-text text-muted small line-clamp-2 mb-3 flex-grow-1">
                   {{ product.description }}
                 </p>

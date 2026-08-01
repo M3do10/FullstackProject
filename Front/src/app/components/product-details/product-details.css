@@ -1,0 +1,7 @@
+.tracking-wide {
+  letter-spacing: 0.05em;
+}
+
+.card {
+  transition: box-shadow 0.3s ease;
+}
